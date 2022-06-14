@@ -3,39 +3,37 @@ package com.cgi.boat.interview;
 import java.util.List;
 import java.util.Map;
 
-class PeopleProcessor {
-    /**
-     * Returns a {@link Map} where keys are first names and values lists of all last names
-     * of people from the input list who have the first name
-     * equal to the key.
-     *
-     * Example:
-     * For input: ["John Doe", "John Silver", "Peter Doe"]
-     * Expected result would be:
-     * {
+public class PeopleProcessor {
+    /*
+    * Example:
+            * For input: ["John Doe", "John Silver", "Peter Doe"]
+            * Expected result would be:
+            * {
      *  "John" -> ["Doe", "Silver"]
      *  "Peter" -> ["Doe"]
      * }
      */
-    static Map<String, List<String>> lastnamesByFirstname(List<Person> people){
-        //TODO: implement
+    static Map<String, List<String >> lastnamesByFirstName(List<Person> people){
+        Map<String, List<String >> result = new HashMap();
+
+        for (Person person : people) {
+            if (!result.containsKey(person.getFirstName())) {
+                result.put(person.getFirstName(), new ArrayList<String>());
+            }
+            result.get(person.getFirstName()).add(person.getLastName());
+        }
+        return result;
     }
 
+    static Map<String, List<String >> firstnamesByLastname(List<Person> people){
+        Map<String, List<String >> result = new HashMap();
 
-    /**
-     * Same as {@link PeopleProcessor#lastnamesByFirstname} except that the mapping
-     * returned is lastname -> firstnames
-     *
-     * Example:
-     * For input: ["John Doe", "John Silver", "Peter Doe"]
-     * Expected result would be:
-     * {
-     *  "Doe" -> ["John", "Peter"]
-     *  "Silver" -> ["John"]
-     *
-     */
-    static Map<String, List<String>> firstnamesByLastname(List<Person> people){
-        //TODO: implement
+        for (Person person : people) {
+            if (!result.containsKey(person.getLastName())) {
+                result.put(person.getLastName(), new ArrayList<String>());
+            }
+            result.get(person.getLastName()).add(person.getFirstName());
+        }
+        return result;
     }
-
 }
