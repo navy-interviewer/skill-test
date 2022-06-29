@@ -1,7 +1,6 @@
 package com.cgi.boat.interview;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class PeopleProcessor {
     /**
@@ -18,7 +17,11 @@ class PeopleProcessor {
      * }
      */
     static Map<String, List<String>> lastnamesByFirstname(List<Person> people){
-        //TODO: implement
+        Map<String, List<String>> result = new HashMap<>();
+        for(Person person: people) {
+            addToMap(result, person.getFirstName(), person.getLastName());
+        }
+        return result;
     }
 
 
@@ -35,7 +38,21 @@ class PeopleProcessor {
      *
      */
     static Map<String, List<String>> firstnamesByLastname(List<Person> people){
-        //TODO: implement
+        Map<String, List<String>> result = new HashMap<>();
+        for(Person person: people) {
+            addToMap(result, person.getLastName(), person.getFirstName());
+        }
+        return result;
+    }
+
+    private static void addToMap(Map<String, List<String>> result, String key, String value) {
+        if(result.containsKey(key)) {
+            result.get(key).add(value);
+        } else {
+            List<String> list = new ArrayList<>();
+            list.add(value);
+            result.put(key, list);
+        }
     }
 
 }
