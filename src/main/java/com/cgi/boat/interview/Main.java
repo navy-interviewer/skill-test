@@ -21,11 +21,4 @@ public class Main {
                 .limit(MOST_COMMON_FIRST_NAMES_LIMIT)
                 .forEach(e -> System.out.println(e.getKey() + ": " + e.getValue()));
     }
-
-
-
-
-
-
-
 }

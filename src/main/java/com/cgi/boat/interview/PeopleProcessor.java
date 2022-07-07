@@ -7,6 +7,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 class PeopleProcessor {
+
     /**
      * Returns a {@link Map} where keys are first names and values lists of all last names
      * of people from the input list who have the first name
@@ -20,10 +21,9 @@ class PeopleProcessor {
      *  "Peter" -> ["Doe"]
      * }
      */
-    static Map<String, List<String>> lastnamesByFirstname(List<Person> people){
+    static Map<String, List<String>> lastnamesByFirstname(List<Person> people) {
         return transformPeople(people, Person::getFirstName, Person::getLastName);
     }
-
 
     /**
      * Same as {@link PeopleProcessor#lastnamesByFirstname} except that the mapping
@@ -37,7 +37,7 @@ class PeopleProcessor {
      *  "Silver" -> ["John"]
      *
      */
-    static Map<String, List<String>> firstnamesByLastname(List<Person> people){
+    static Map<String, List<String>> firstnamesByLastname(List<Person> people) {
         return transformPeople(people, Person::getLastName, Person::getFirstName);
     }
 
