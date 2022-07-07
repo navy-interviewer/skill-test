@@ -1,7 +1,10 @@
 package com.cgi.boat.interview;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 class PeopleProcessor {
     /**
@@ -18,7 +21,7 @@ class PeopleProcessor {
      * }
      */
     static Map<String, List<String>> lastnamesByFirstname(List<Person> people){
-        //TODO: implement
+        return transformPeople(people, Person::getFirstName, Person::getLastName);
     }
 
 
@@ -35,7 +38,33 @@ class PeopleProcessor {
      *
      */
     static Map<String, List<String>> firstnamesByLastname(List<Person> people){
-        //TODO: implement
+        return transformPeople(people, Person::getLastName, Person::getFirstName);
     }
 
+    private static Map<String, List<String>> transformPeople(List<Person> people,
+                                                             Function<Person, String> keySupplier,
+                                                             Function<Person, String> valueSupplier) {
+        if (people == null) {
+            throw new RuntimeException("Argument 'people' must not be null!");
+        }
+
+        if (keySupplier == null) {
+            throw new RuntimeException("Argument 'keySupplier' must not be null!");
+        }
+
+        if (valueSupplier == null) {
+            throw new RuntimeException("Argument 'valueSupplier' must not be null!");
+        }
+
+        return people.stream()
+                .filter(person -> person.getFirstName() != null && person.getLastName() != null)
+                .collect(Collectors.toMap(keySupplier,
+                        person -> new ArrayList<String>() {{
+                            add(valueSupplier.apply(person));
+                        }},
+                        (list1, list2) -> {
+                            list1.addAll(list2);
+                            return list1;
+                        }));
+    }
 }
