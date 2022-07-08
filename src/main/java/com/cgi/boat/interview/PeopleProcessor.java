@@ -2,6 +2,8 @@ package com.cgi.boat.interview;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 class PeopleProcessor {
     /**
@@ -17,10 +19,11 @@ class PeopleProcessor {
      *  "Peter" -> ["Doe"]
      * }
      */
-    static Map<String, List<String>> lastnamesByFirstname(List<Person> people){
-        //TODO: implement
+    static Map<String, List<String>> lastnamesByFirstname(List<Person> people) {
+        Function<Person, String> key = Person::getFirstName;
+        Function<Person, String> value = Person::getLastName;
+        return getMappedPersonNames(people, key, value);
     }
-
 
     /**
      * Same as {@link PeopleProcessor#lastnamesByFirstname} except that the mapping
@@ -34,8 +37,15 @@ class PeopleProcessor {
      *  "Silver" -> ["John"]
      *
      */
-    static Map<String, List<String>> firstnamesByLastname(List<Person> people){
-        //TODO: implement
+    static Map<String, List<String>> firstnamesByLastname(List<Person> people) {
+        Function<Person, String> key = Person::getLastName;
+        Function<Person, String> value = Person::getFirstName;
+        return getMappedPersonNames(people, key, value);
     }
 
+    private static Map<String, List<String>> getMappedPersonNames(List<Person> people, Function<Person, String> key, Function<Person, String> value) {
+        return people.stream().collect(Collectors.groupingBy(
+                key,
+                Collectors.mapping(value, Collectors.toList())));
+    }
 }
