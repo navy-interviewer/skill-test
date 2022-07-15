@@ -1,7 +1,11 @@
 package com.cgi.boat.interview;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 class PeopleProcessor {
     /**
@@ -18,8 +22,24 @@ class PeopleProcessor {
      * }
      */
     static Map<String, List<String>> lastnamesByFirstname(List<Person> people){
-        //TODO: implement
+        Map<String, List<String>> result = new HashMap<>();
+
+
+        Map<String, List<Person>> personsMap = people.stream()
+                .collect(Collectors.groupingBy(Person::getFirstName));
+
+
+        for(Map.Entry<String, List<Person>> firstnameGroup : personsMap.entrySet()) {
+            String firstName = firstnameGroup.getKey();
+            List<String> lastnames = firstnameGroup.getValue().stream()
+                    .map(item -> item.getLastName())
+                    .collect(Collectors.toList());
+            result.put(firstName, lastnames);
+        }
+
+        return result;
     }
+
 
 
     /**
@@ -35,7 +55,21 @@ class PeopleProcessor {
      *
      */
     static Map<String, List<String>> firstnamesByLastname(List<Person> people){
-        //TODO: implement
+        Map<String, List<String>> result = new HashMap<>();
+
+        Map<String, List<Person>> personsMap = people.stream()
+                .collect(Collectors.groupingBy(Person::getLastName));
+
+
+        for(Map.Entry<String, List<Person>> lastnameGroup : personsMap.entrySet()) {
+            String lastName = lastnameGroup.getKey();
+            List<String> firstnames = lastnameGroup.getValue().stream()
+                    .map(item -> item.getFirstName())
+                    .collect(Collectors.toList());
+            result.put(lastName, firstnames);
+        }
+
+        return result;
     }
 
 }
