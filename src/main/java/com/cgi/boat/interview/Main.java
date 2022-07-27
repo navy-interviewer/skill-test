@@ -9,6 +9,8 @@ public class Main {
         Map<String, List<String>> firstByLast = PeopleProcessor.firstnamesByLastname(PeopleSetup.people);
         Map<String, List<String>> lastByFirst = PeopleProcessor.lastnamesByFirstname(PeopleSetup.people);
 
+        System.out.println("Hello CGI Interview");
+
         // TODO: Print out 3 most common first names along with number of occurrences
         // for example:
         // Homer: 32
