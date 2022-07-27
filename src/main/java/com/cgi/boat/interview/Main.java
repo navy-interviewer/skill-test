@@ -14,12 +14,9 @@ public class Main {
         // Homer: 32
         // Bart: 21
         // William: 3
+        PeopleFinder.findTheMostFrequentFirstNames(lastByFirst, 3)
+                .forEach(reportElement -> System.out.printf("%s: %d%n", reportElement.getName(),
+                        reportElement.getFrequency()));
     }
-
-
-
-
-
-
 
 }
