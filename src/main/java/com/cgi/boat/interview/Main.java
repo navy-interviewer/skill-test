@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
 
-    private static final int PRINT_LIMIT = 5;
+    private static final int PRINT_LIMIT = 3;
 
     public static void main(String[] args) {
         Map<String, List<String>> lastByFirst = PeopleProcessor.lastnamesByFirstname(PeopleSetup.people);
