@@ -1,10 +1,9 @@
 package com.cgi.boat.interview;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 class PeopleProcessor {
     /**
@@ -43,15 +42,8 @@ class PeopleProcessor {
 
     private static Map<String, List<String>> createGroupedMap(List<Person> people, Function<Person, String> keyFunction, Function<Person, String> valueFunction) {
         return people.parallelStream()
-                .collect(HashMap::new,
-                        (stringListHashMap, person) -> {
-                            String key = keyFunction.apply(person);
-                            String value = valueFunction.apply(person);
-                            stringListHashMap.computeIfAbsent(key, s -> new ArrayList<>()).add(value);
-                        },
-                        (stringListHashMap, stringListHashMap2) -> stringListHashMap2.forEach((key, value) ->
-                                stringListHashMap.computeIfAbsent(key, s -> new ArrayList<>()).addAll(value)
-                        )
+                .collect(
+                        Collectors.groupingBy(keyFunction, Collectors.mapping(valueFunction, Collectors.toList()))
                 );
     }
 
