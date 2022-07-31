@@ -42,6 +42,7 @@ class PeopleProcessor {
 
     private static Map<String, List<String>> createGroupedMap(List<Person> people, Function<Person, String> keyFunction, Function<Person, String> valueFunction) {
         return people.parallelStream()
+                .filter(person -> keyFunction.apply(person) != null)
                 .collect(
                         Collectors.groupingBy(keyFunction, Collectors.mapping(valueFunction, Collectors.toList()))
                 );

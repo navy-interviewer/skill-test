@@ -22,6 +22,19 @@ public class PeopleProcessorTest {
         assertEquals(0, result.size());
     }
 
+    @Test
+    public void testKeyNameMissing() {
+        Map<String, List<String>> result = PeopleProcessor.lastnamesByFirstname(Collections.singletonList(new Person(null, LASTNAME)));
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    public void testValueNameMissing() {
+        Map<String, List<String>> result = PeopleProcessor.lastnamesByFirstname(Collections.singletonList(new Person(FIRSTNAME, null)));
+        assertEquals(1, result.size());
+        assertTrue(result.containsKey(FIRSTNAME));
+        assertEquals(Collections.singletonList(null), result.get(FIRSTNAME));
+    }
 
     @Test
     public void testSinglePerson() {
