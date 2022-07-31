@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MaxOccurrenceCollector {
+class MaxOccurrenceCollector {
 
     static List<AbstractMap.SimpleEntry<String, Integer>> solutionA(Map<String, List<String>> lastByFirst, int printLimit) {
         List<AbstractMap.SimpleEntry<String, Integer>> firstNameCounts = lastByFirst.entrySet().stream()
