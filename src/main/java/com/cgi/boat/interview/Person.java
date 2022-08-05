@@ -17,4 +17,8 @@ class Person {
     String getLastName() {
         return lastName;
     }
+
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
