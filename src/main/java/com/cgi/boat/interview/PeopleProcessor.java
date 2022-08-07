@@ -1,7 +1,10 @@
 package com.cgi.boat.interview;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 class PeopleProcessor {
     /**
@@ -18,7 +21,7 @@ class PeopleProcessor {
      * }
      */
     static Map<String, List<String>> lastnamesByFirstname(List<Person> people){
-        //TODO: implement
+        return grouping(people, Person::getFirstName, Person::getLastName);
     }
 
 
@@ -35,7 +38,15 @@ class PeopleProcessor {
      *
      */
     static Map<String, List<String>> firstnamesByLastname(List<Person> people){
-        //TODO: implement
+        return grouping(people, Person::getLastName, Person::getFirstName);
+    }
+
+    private static Map<String, List<String>> grouping(List<Person> people, Function<Person, String> grouping, Function<Person, String> mapping) {
+        return people.stream()
+                .collect(Collectors.groupingBy(grouping))
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().stream().map(mapping).collect(Collectors.toList())));
     }
 
 }
