@@ -1,5 +1,7 @@
 package com.cgi.boat.interview;
 
+import com.cgi.boat.interview.ranking.MultiRankingStrategy;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,12 +16,15 @@ public class Main {
         // Homer: 32
         // Bart: 21
         // William: 3
+
+        // Different ranking strategies are possible, simple, multi, ...
+        // using multi here
+        PersonNameStatistics personNameStatistics = new PersonNameStatistics(new MultiRankingStrategy());
+
+        Map<String, List<String>> map = PeopleProcessor.firstnamesByLastname(PeopleSetup.people);
+        List<Map.Entry<String, Integer>> mostFrequent = personNameStatistics.popularity(map, 2);
+        mostFrequent.forEach(entry -> System.out.printf("%s: %d%n", entry.getKey(), entry.getValue()));
+
     }
-
-
-
-
-
-
 
 }
