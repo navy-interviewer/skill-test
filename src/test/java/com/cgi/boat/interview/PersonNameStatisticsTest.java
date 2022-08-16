@@ -10,7 +10,6 @@ import java.util.Map;
 class PersonNameStatisticsTest {
 
     PersonNameStatistics personNameStatistics = new PersonNameStatistics(new MultiRankingStrategy());
-//    PersonNameStatistics personNameStatistics = new PersonNameStatistics(new SimpleRankingStrategy());
 
     @Test
     public void test_most_frequent_lastname() {
@@ -40,16 +39,4 @@ class PersonNameStatisticsTest {
         Assertions.assertEquals(mostFrequent.get(1).getKey(), "Harris");
     }
 
-    @Test
-    void test_invalid_head_size() {
-        Map<String, List<String>> map = PeopleProcessor.firstnamesByLastname(PeopleSetup.people);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> personNameStatistics.popularity(map, 0));
-    }
-
-    @Test
-    public void test() {
-        Map<String, List<String>> map = PeopleProcessor.firstnamesByLastname(PeopleSetup.people);
-        List<Map.Entry<String, Integer>> mostFrequent = personNameStatistics.popularity(map, 2);
-        mostFrequent.forEach(entry -> System.out.printf("%s: %d%n", entry.getKey(), entry.getValue()));
-    }
 }

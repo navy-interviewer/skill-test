@@ -5,7 +5,6 @@ import com.cgi.boat.interview.ranking.RankingStrategy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class PersonNameStatistics {
 
@@ -16,29 +15,23 @@ public class PersonNameStatistics {
     }
 
     public List<Map.Entry<String, Integer>> popularity(Map<String, List<String>> nameMapping, int ranks) {
-        final List<Map.Entry<String, Integer>> occurrences = new ArrayList<>();
-        checkRanksValidity(ranks);
-        if (mappingNotEmpty(nameMapping)) {
-            List<Map.Entry<String, List<String>>> sortedEntries = getSortedEntries(nameMapping);
-            // different strategies here
-            rankingStrategy.apply(ranks, occurrences, sortedEntries);
+        if (validRanks(ranks) && validMapping(nameMapping)) {
+            return rankingStrategy.apply(ranks, nameMapping);
         }
-        return occurrences;
+        return new ArrayList<>();
     }
 
-    private void checkRanksValidity(int ranks) {
-        if (ranks < 1) {
-            throw new IllegalArgumentException("Ranks should be greater or equal to one.");
-        }
+    private boolean validRanks(int ranks) {
+        return ranks > 0;
     }
 
-    private List<Map.Entry<String, List<String>>> getSortedEntries(Map<String, List<String>> nameMapping) {
-        return nameMapping.entrySet().stream()
-                .sorted((b, a) -> Integer.compare(a.getValue().size(), b.getValue().size())) // descending order
-                .collect(Collectors.toList());
-    }
+//    private List<Map.Entry<String, List<String>>> entriesSortedByListSize(Map<String, List<String>> nameMapping) {
+//        return nameMapping.entrySet().stream()
+//                .sorted((b, a) -> Integer.compare(a.getValue().size(), b.getValue().size())) // descending order
+//                .collect(Collectors.toList());
+//    }
 
-    private boolean mappingNotEmpty(Map<String, List<String>> nameMapping) {
+    private boolean validMapping(Map<String, List<String>> nameMapping) {
         return nameMapping != null && nameMapping.entrySet().size() > 0;
     }
 
