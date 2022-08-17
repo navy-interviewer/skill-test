@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class SimpleRankingStrategy implements RankingStrategy {
-    @Override
-    public List<Map.Entry<String, Integer>> apply(int ranks, Map<String, List<String>> nameMapping) {
-        List<Map.Entry<String, List<String>>> sortedEntries = sortEntriesByListSizes(nameMapping);
+public class SimpleRankingStrategy extends SortingBasedRankingStrategy {
 
+    @Override
+    protected List<Map.Entry<String, Integer>> applySpecific(int ranks, List<Map.Entry<String, List<String>>> sortedEntries) {
         final int maxValidIndex = Math.min(sortedEntries.size(), ranks); // deal with the case if ranks is greater than the map itself
         List<Map.Entry<String, Integer>> occurrences = new ArrayList<>();
 
@@ -17,5 +16,6 @@ public class SimpleRankingStrategy implements RankingStrategy {
                 entry -> occurrences.add(new SimpleEntry<>(entry.getKey(), entry.getValue().size()))
         );
         return occurrences;
+
     }
 }
