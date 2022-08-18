@@ -5,21 +5,15 @@ import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Map<String, List<String>> firstByLast = PeopleProcessor.firstnamesByLastname(PeopleSetup.people);
-        Map<String, List<String>> lastByFirst = PeopleProcessor.lastnamesByFirstname(PeopleSetup.people);
+    public static void main(final String[] args) {
+        final Map<String, List<String>> firstByLast = PeopleProcessor.firstnamesByLastname(PeopleSetup.people);
+        final Map<String, List<String>> lastByFirst = PeopleProcessor.lastnamesByFirstname(PeopleSetup.people);
 
-        // TODO: Print out 3 most common first names along with number of occurrences
-        // for example:
-        // Homer: 32
-        // Bart: 21
-        // William: 3
+        lastByFirst
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue((o1, o2) -> Integer.compare(o2.size(), o1.size())))
+                .limit(3)
+                .forEach(entry -> System.out.println(entry.getKey() +" : " + entry.getValue().size()));
     }
-
-
-
-
-
-
-
 }
