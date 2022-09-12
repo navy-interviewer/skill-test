@@ -29,7 +29,6 @@ public class PeopleProcessorTest {
 		Person johnBurns = new Person("John", "Burns");
 		Person johnSilver = new Person("John", "Silver");
 		Person peterDoe = new Person("Peter", "Doe");
-		// ["John Doe", "John Silver", "Peter Doe"]
 		return Stream.of(
 	      Arguments.of(null, Map.of(), "null person"),
 	      Arguments.of(List.of(), Map.of(), "no person"),
