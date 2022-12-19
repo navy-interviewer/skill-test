@@ -25,7 +25,7 @@ public class Main {
      * @param names a map of name with correlation to their other given name (interchangeable(first/last))
      * @return a {@link Result} list of the three most common names
      */
-    private static List<Result> findFirstThree(Map<String, List<String>> names, int limit) {
+    public static List<Result> findFirstThree(Map<String, List<String>> names, int limit) {
         return names.values().stream()
                 .flatMap(List::stream)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
