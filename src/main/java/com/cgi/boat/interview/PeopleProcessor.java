@@ -1,7 +1,9 @@
 package com.cgi.boat.interview;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 class PeopleProcessor {
     /**
@@ -18,7 +20,8 @@ class PeopleProcessor {
      * }
      */
     static Map<String, List<String>> lastnamesByFirstname(List<Person> people){
-        //TODO: implement
+        return people.stream()
+                .collect(Collectors.groupingBy(Person::getFirstName, Collectors.mapping(Person::getLastName, Collectors.toList())));
     }
 
 
@@ -35,7 +38,9 @@ class PeopleProcessor {
      *
      */
     static Map<String, List<String>> firstnamesByLastname(List<Person> people){
-        //TODO: implement
+        return lastnamesByFirstname(people).entrySet().parallelStream()
+                .flatMap(e -> e.getValue().stream().map(v -> new Person(e.getKey(), v)))
+                .collect(Collectors.groupingBy(Person::getLastName, Collectors.mapping(Person::getFirstName, Collectors.toList())));
     }
 
 }
